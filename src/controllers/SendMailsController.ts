@@ -4,7 +4,7 @@ import { getCustomRepository } from 'typeorm';
 import { SurveysRepository } from '../repositories/SurveysRepository';
 import { SurveysUsersRepository } from '../repositories/SurveysUsersRepository';
 import { UsersRepository } from '../repositories/UsersRepository';
-import SendMailServices from '../services/SendMailServices';
+import MailServices from '../services/MailServices';
 
 class SendMailsController {
   async execute(request: Request, response: Response) {
@@ -34,7 +34,7 @@ class SendMailsController {
       title: survey.title,
       description: survey.description,
       userId: user.id,
-      link: process.env.URL_MAIL,
+      link: process.env.MAIL_URL,
     };
 
     const surveyUserAlreadyExists = await surveysUsersRepository.findOne({
@@ -43,7 +43,7 @@ class SendMailsController {
     });
 
     if (surveyUserAlreadyExists) {
-      await SendMailServices.execute(email, survey.title, variables, npsPath);
+      await MailServices.execute(email, survey.title, variables, npsPath);
       return response.json(surveyUserAlreadyExists);
     }
 
@@ -54,7 +54,7 @@ class SendMailsController {
 
     await surveysUsersRepository.save(surveyUser);
 
-    await SendMailServices.execute(email, survey.title, variables, npsPath);
+    await MailServices.execute(email, survey.title, variables, npsPath);
 
     return response.json(surveyUser);
   }
