@@ -1,0 +1,11 @@
+### Consulta todas as pesquisas
+GET http://localhost:3333/surveys HTTP/1.1
+
+### Create Surveys
+POST http://localhost:3333/surveys HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "Queremos ouvir sua opinião",
+  "description": "De 0 a 10, como você avália nosso atendimento?"
+}
