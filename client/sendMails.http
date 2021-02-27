@@ -1,0 +1,8 @@
+### Send Email
+POST http://localhost:3333/sendMails HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "mauricio@gmail.com",
+  "surveyId": "15edf8d9-4865-4aee-9c26-0e0a87891d9f"
+}
